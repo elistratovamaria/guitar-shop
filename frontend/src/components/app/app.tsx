@@ -1,5 +1,9 @@
+import ProductCardPage from '../../pages/product-card-page/product-card-page';
+
 function App(): JSX.Element {
-  return <p>Hello, world!</p>;
+  return (
+    <ProductCardPage />
+  );
 }
 
 export default App;
