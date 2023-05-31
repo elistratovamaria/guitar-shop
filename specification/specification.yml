@@ -1,0 +1,424 @@
+openapi: 3.1.0
+info:
+  title: API сервер для проекта «Guitar Shop».
+  description: |-
+    * Список ресурсов и маршрутов сервера «Guitar Shop».
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  version: 1.0.0
+tags:
+  - name: users
+    description: Действия с пользователями
+  - name: guitars
+    description: Действия с товаром
+paths:
+  /users/register:
+    post:
+      tags:
+        - users
+      summary: Регистрация пользователя
+      description: Регистрирует нового пользователя
+
+      requestBody:
+        description: Информация для создания нового пользователя.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createUser"
+        required: true
+
+      responses:
+        "201":
+          description: Пользователь зарегистрирован. Объект пользователя.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/user"
+
+        "400":
+          description: Логин или пароль не валидны.
+
+        "409":
+          description: Пользователь с таким email уже существует.
+
+  /users/login:
+    post:
+      tags:
+        - users
+      summary: Авторизация пользователя
+      description: Авторизует пользователя на основе логина и пароля
+
+      requestBody:
+        description: Информация для авторизации.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/loginUser"
+        required: true
+
+      responses:
+        "200":
+          description: Пользователь авторизован.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/userWithToken"
+
+        "400":
+          description: Логин или пароль неверный.
+
+        "404":
+          description: Пользователь с таким логином не существует
+
+    get:
+      tags:
+        - users
+      summary: Проверка состояния пользователя
+      description: Возвращает информацию по авторизованному пользователю
+
+      responses:
+        "200":
+          description: Пользователь авторизован. Объект пользователя.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/userWithToken"
+
+        "401":
+          description: Пользователь не авторизован.
+
+  /films:
+    post:
+      tags:
+        - guitars
+      summary: Добавление товара
+      description: Добавляет новый товар
+
+      requestBody:
+        description: Информация для создания нового товара
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createOrUpdateGuitar"
+        required: true
+
+      responses:
+        "201":
+          description: Товар создан. Объект товара.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/guitar"
+
+        "400":
+          description: Данные не валидны.
+
+        "401":
+          description: Пользователь не авторизован.
+
+        "403":
+          description: Недостаточно прав для создания товара.
+
+    get:
+      tags:
+        - guitars
+      summary: Получение списка товаров
+      description: Получает список товаров
+
+      parameters:
+        - name: type
+          in: query
+          description: Тип гитары
+          schema:
+            type: string
+            example: акустика
+
+        - name: strings
+          in: query
+          description: Количество струн
+          schema:
+            type: number
+            example: 4
+
+      responses:
+        "200":
+          description: Возвращает массив товаров.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/guitars"
+
+  /guitars/{guitarId}:
+    patch:
+      tags:
+        - guitars
+      summary: Редактирование товара
+      description: Редактирует карточку товара
+
+      parameters:
+        - name: guitarId
+          in: path
+          description: Уникальный идентификатор товара
+          required: true
+          schema:
+            type: number
+            example: 1
+
+
+      requestBody:
+        description: Информация для редактирования товара
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createOrUpdateGuitar"
+        required: true
+
+      responses:
+        "200":
+          description: Товар изменён. Объект товара.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/guitar"
+
+        "400":
+          description: Данные не валидны.
+
+        "401":
+          description: Пользователь не авторизован.
+
+        "403":
+          description: Недостаточно прав для редактирования товара.
+
+        "404":
+          description: Такой товар не существует
+
+    delete:
+      tags:
+        - guitars
+      summary: Удаление товара
+      description: Удаляет карточку товара
+
+      responses:
+        "204":
+          description: Товар удалён.
+
+        "401":
+          description: Пользователь не авторизован.
+
+        "403":
+          description: Недостаточно прав для удаления товара.
+
+        "404":
+          description: Такой товар не существует
+
+    get:
+      tags:
+        - guitars
+      summary: Получение детальной информации по товару
+      description: Получает детальную информацию по товару
+
+      responses:
+        "200":
+          description: Возвращает детальную информацию по товару.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/guitar"
+
+        "401":
+          description: Пользователь не авторизован.
+
+        "404":
+          description: Такой товар не существует
+
+components:
+  schemas:
+    createUser:
+      type: object
+
+      properties:
+        userName:
+          type: string
+          example: Keks
+
+        email:
+          type: string
+          example: keks@htmlacademy.ru
+
+        password:
+          type: string
+          example: 123456
+
+    loginUser:
+      type: object
+
+      properties:
+        email:
+          type: string
+          example: Emilia@outlook.com
+
+        password:
+          type: string
+          example: 123456
+
+    user:
+      type: object
+
+      properties:
+        id:
+          type: string
+          example: 6329c3d6a04ab1061c6425ea
+
+        email:
+          type: string
+          example: keks@htmlacademy.ru
+
+    userWithToken:
+      type: object
+
+      properties:
+        id:
+          type: string
+          example: 6317c3d6a54ab1061c6434ea
+
+        userName:
+          type: string
+          example: Emilia
+
+        email:
+          type: string
+          example: test@lost.local
+
+        token:
+          type: string
+          example: T2xpdmVyLmNvbm5lckBnbWFpbC5jb20=
+
+    createOrUpdateGuitar:
+      type: object
+
+      properties:
+        name:
+          type: string
+          example: СURT Z30 Plus
+
+        description:
+          type: string
+          example: Гитара подходит как для старта обучения, так и для домашних занятий или использования в полевых условиях, например, в походах или для проведения уличных выступлений.
+Доступная стоимость, качество и надежная конструкция, а также приятный внешний вид, который сделает вас звездой вечеринки.
+
+        postDate:
+          type: string
+          format: date-time
+          example: 2022-12-22T08:45:40.283Z
+
+        image:
+          type: string
+          example: https://1.jpg
+
+        guitarType:
+          type: string
+          example: электро
+
+        runTime:
+          type: number
+          example: 130
+
+        articleNumber:
+          type: string
+          example: aft-20-td
+
+        stringAmount:
+          type: number
+          example: 4
+
+        price:
+          type: number
+          example: 100
+
+    guitar:
+      type: object
+
+      properties:
+        name:
+          type: string
+          example: СURT Z30 Plus
+
+        description:
+          type: string
+          example: Гитара подходит как для старта обучения, так и для домашних занятий или использования в полевых условиях, например, в походах или для проведения уличных выступлений.
+Доступная стоимость, качество и надежная конструкция, а также приятный внешний вид, который сделает вас звездой вечеринки.
+
+        postDate:
+          type: string
+          format: date-time
+          example: 2022-12-22T08:45:40.283Z
+
+        image:
+          type: string
+          example: https://1.jpg
+
+        guitarType:
+          type: string
+          example: электро
+
+        runTime:
+          type: number
+          example: 130
+
+        articleNumber:
+          type: string
+          example: aft-20-td
+
+        stringAmount:
+          type: number
+          example: 4
+
+        price:
+          type: number
+          example: 100
+
+
+    guitars:
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+          type: string
+          example: СURT Z30 Plus
+
+        description:
+          type: string
+          example: Гитара подходит как для старта обучения, так и для домашних занятий или использования в полевых условиях, например, в походах или для проведения уличных выступлений.
+Доступная стоимость, качество и надежная конструкция, а также приятный внешний вид, который сделает вас звездой вечеринки.
+
+        postDate:
+          type: string
+          format: date-time
+          example: 2022-12-22T08:45:40.283Z
+
+        image:
+          type: string
+          example: https://1.jpg
+
+        guitarType:
+          type: string
+          example: электро
+
+        runTime:
+          type: number
+          example: 130
+
+        articleNumber:
+          type: string
+          example: aft-20-td
+
+        stringAmount:
+          type: number
+          example: 4
+
+        price:
+          type: number
+          example: 100
