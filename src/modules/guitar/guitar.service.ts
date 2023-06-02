@@ -61,4 +61,9 @@ export default class GuitarService implements GuitarServiceInterface {
       .findByIdAndUpdate(guitarId, dto, {new: true})
       .exec();
   }
+
+  public async exists(documentId: string): Promise<boolean> {
+    return (await this.guitarModel
+      .exists({ _id: documentId })) !== null;
+  }
 }
