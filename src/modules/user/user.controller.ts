@@ -16,15 +16,14 @@ import { ValidateDtoMiddleware } from '../../common/middlewares/validate-dto.mid
 import LoggedUserRdo from './rdo/logged-user.rdo.js';
 import { JWT_ALGORITM } from './user.constant.js';
 
-
 @injectable()
 export default class UserController extends Controller {
   constructor(
     @inject(Component.LoggerInterface) logger: LoggerInterface,
+    @inject(Component.ConfigInterface) configService: ConfigInterface,
     @inject(Component.UserServiceInterface) private readonly userService: UserServiceInterface,
-    @inject(Component.ConfigInterface) private readonly configService: ConfigInterface
   ) {
-    super(logger);
+    super(logger, configService);
     this.logger.info('Register routes for UserController…');
 
     this.addRoute({
