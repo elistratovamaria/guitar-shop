@@ -17,6 +17,7 @@ import { ValidateDtoMiddleware } from '../../common/middlewares/validate-dto.mid
 import { DocumentExistsMiddleware } from '../../common/middlewares/document-exists.middleware.js';
 import { PrivateRouteMiddleware } from '../../common/middlewares/private-route.middleware.js';
 import { ConfigInterface } from '../../common/config/config.interface.js';
+import { RequestQuery } from '../../types/request-query.type.js';
 
 type ParamsGetGuitar = {
   guitarId: string;
@@ -93,8 +94,12 @@ export default class GuitarController extends Controller {
     this.ok(res, fillDTO(GuitarRdo, guitar));
   }
 
-  public async index(_req: Request, res: Response) {
-    const guitars = await this.guitarService.find();
+  public async index(
+    req: Request<core.ParamsDictionary, unknown, unknown, RequestQuery>,
+    res: Response
+  ) {
+    const { query } = req;
+    const guitars = await this.guitarService.find(query?.sortType);
     this.ok(res, fillDTO(GuitarRdo, guitars));
   }
 

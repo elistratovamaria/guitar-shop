@@ -35,19 +35,19 @@ export default class GuitarService implements GuitarServiceInterface {
     if (!sortType || sortType === SortType.Date) {
       return this.guitarModel
         .find()
-        .sort({createdAt: SortDirection.Down})
+        .sort({postDate: SortDirection.Down})
         .limit(DEFAULT_GUITAR_COUNT)
         .exec();
     } else if (sortType === SortType.PriceDown) {
       return this.guitarModel
         .find()
-        .sort({createdAt: SortDirection.Down})
+        .sort({price: SortDirection.Down})
         .limit(DEFAULT_GUITAR_COUNT)
         .exec();
     } else {
       return this.guitarModel
         .find()
-        .sort({createdAt: SortDirection.Down})
+        .sort({price: SortDirection.Up})
         .limit(DEFAULT_GUITAR_COUNT)
         .exec();
     }

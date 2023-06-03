@@ -39,7 +39,7 @@ GET http://localhost:5000/guitars/647a0fb6289422e07fa3540e HTTP/1.1
 
 ## Список товаров
 
-GET http://localhost:5000/guitars HTTP/1.1
+GET http://localhost:5000/guitars?sortType=price-down HTTP/1.1
 
 ###
 
@@ -47,16 +47,16 @@ GET http://localhost:5000/guitars HTTP/1.1
 
 POST http://localhost:5000/guitars HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImVtaWx5QG92ZXJsb29rLm5ldCIsImlkIjoiNjQ3YTM4NzA5NTZmNGNhZDI2NTRjODIxIiwiaWF0IjoxNjg1ODAzMDU4LCJleHAiOjE2ODU5NzU4NTh9.9bB0v8t92-P4q92HnLKYkFoYJRYUQPOVbsgyVakW4aA
 
 {
   "name": "VESTON F-38/BK",
   "description": "VESTON F-38/BK - акустическая гитара в корпусе фолк отличного качества, доступная по демократичной цене. Такая гитара будет отличным выбором для начинающих музыкантов и обучающихся игре на инструменте.",
-  "postDate": "2023-06-01T11:56:37.573Z",
   "image": "2.png",
-  "guitarType": "акустика",
+  "guitarType": "укулеле",
   "articleNumber": "A073576",
-  "stringAmount": 6,
-  "price": 6790
+  "stringAmount": 7,
+  "price": 30000
 }
 
 ###
