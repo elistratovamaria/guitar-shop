@@ -1,6 +1,11 @@
+import { Helmet } from 'react-helmet-async';
+
 function AddProductPage(): JSX.Element {
   return (
     <div className="wrapper">
+      <Helmet>
+        <title>Guitar Shop. Добавление товара</title>
+      </Helmet>
       <header className="header--admin header" id="header">
         <div className="container">
           <div className="header__wrapper">

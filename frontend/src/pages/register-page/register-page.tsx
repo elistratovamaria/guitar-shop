@@ -1,6 +1,11 @@
+import { Helmet } from 'react-helmet-async';
+
 function RegisterPage(): JSX.Element {
   return (
     <div className="wrapper">
+      <Helmet>
+        <title>Guitar Shop. Регистрация</title>
+      </Helmet>
       <header className="header" id="header">
         <div className="container">
           <div className="header__wrapper">
