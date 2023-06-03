@@ -99,8 +99,26 @@ export default class GuitarController extends Controller {
     res: Response
   ) {
     const { query } = req;
-    const guitars = await this.guitarService.find(query?.sortType);
-    this.ok(res, fillDTO(GuitarRdo, guitars));
+    if (query.stringAmount && !query.guitarType) {
+      query.stringAmount = Number(query.stringAmount);
+      const guitars = await this.guitarService.findByStringAmount(query?.sortType, query.stringAmount);
+      this.ok(res, fillDTO(GuitarRdo, guitars));
+    }
+
+    if (!query.stringAmount && query.guitarType) {
+      const guitars = await this.guitarService.findByGuitarType(query?.sortType, query.guitarType);
+      this.ok(res, fillDTO(GuitarRdo, guitars));
+    }
+
+    if (!query.stringAmount && !query.guitarType) {
+      const guitars = await this.guitarService.find(query?.sortType);
+      this.ok(res, fillDTO(GuitarRdo, guitars));
+    }
+
+    if (query.stringAmount && query.guitarType) {
+      const guitars = await this.guitarService.findByGuitarTypeAndStringAmount(query?.sortType, query.guitarType, query.stringAmount);
+      this.ok(res, fillDTO(GuitarRdo, guitars));
+    }
   }
 
   public async create(

@@ -39,7 +39,7 @@ GET http://localhost:5000/guitars/647a0fb6289422e07fa3540e HTTP/1.1
 
 ## Список товаров
 
-GET http://localhost:5000/guitars?sortType=price-down HTTP/1.1
+GET http://localhost:5000/guitars?sortType=price-down&&guitarType=укулеле HTTP/1.1
 
 ###
 
