@@ -5,5 +5,8 @@ export default class UserRdo {
   public userName!: string;
 
   @Expose()
-  public email!: string ;
+  public email!: string;
+
+  @Expose()
+  public isAdmin?: boolean;
 }

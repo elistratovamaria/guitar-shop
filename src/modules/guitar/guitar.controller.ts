@@ -18,6 +18,7 @@ import { DocumentExistsMiddleware } from '../../common/middlewares/document-exis
 import { PrivateRouteMiddleware } from '../../common/middlewares/private-route.middleware.js';
 import { ConfigInterface } from '../../common/config/config.interface.js';
 import { RequestQuery } from '../../types/request-query.type.js';
+import { UserServiceInterface } from '../user/user-service.interface.js';
 
 type ParamsGetGuitar = {
   guitarId: string;
@@ -28,7 +29,8 @@ export default class GuitarController extends Controller {
   constructor(
     @inject(Component.LoggerInterface) logger: LoggerInterface,
     @inject(Component.ConfigInterface) configService: ConfigInterface,
-    @inject(Component.GuitarServiceInterface) private readonly guitarService: GuitarServiceInterface
+    @inject(Component.GuitarServiceInterface) private readonly guitarService: GuitarServiceInterface,
+    @inject(Component.UserServiceInterface) private readonly userService: UserServiceInterface
   ) {
     super(logger, configService);
 
@@ -122,18 +124,42 @@ export default class GuitarController extends Controller {
   }
 
   public async create(
-    { body }: Request<Record<string, unknown>, Record<string, unknown>, CreateGuitarDto>,
+    req: Request<Record<string, unknown>, Record<string, unknown>, CreateGuitarDto>,
     res: Response
   ): Promise<void> {
+    const { body, user} = req;
+
+    const existedUser = await this.userService.findByEmail(user.email);
+
+    if (!existedUser?.isAdmin) {
+      throw new HttpError(
+        StatusCodes.FORBIDDEN,
+        `The user with ID ${user.id} does not have rights to create a product`,
+        'GuitarController'
+      );
+    }
     const result = await this.guitarService.create(body);
     const guitar = await this.guitarService.findById(result.id);
     this.created(res, fillDTO(GuitarRdo, guitar));
   }
 
   public async delete(
-    { params }: Request<core.ParamsDictionary | ParamsGetGuitar>,
+    req: Request<core.ParamsDictionary | ParamsGetGuitar>,
     res: Response
   ): Promise<void> {
+
+    const { params, user } = req;
+
+    const existedUser = await this.userService.findByEmail(user.email);
+
+    if (!existedUser?.isAdmin) {
+      throw new HttpError(
+        StatusCodes.FORBIDDEN,
+        `The user with ID ${user.id} does not have rights to delete a product`,
+        'GuitarController'
+      );
+    }
+
     const { guitarId } = params;
     const guitar = await this.guitarService.deleteById(guitarId);
 
@@ -149,9 +175,20 @@ export default class GuitarController extends Controller {
   }
 
   public async update(
-    { body, params }: Request<core.ParamsDictionary | ParamsGetGuitar, Record<string, unknown>, UpdateGuitarDto>,
+    { body, params, user }: Request<core.ParamsDictionary | ParamsGetGuitar, Record<string, unknown>, UpdateGuitarDto>,
     res: Response
   ): Promise<void> {
+
+    const existedUser = await this.userService.findByEmail(user.email);
+
+    if (!existedUser?.isAdmin) {
+      throw new HttpError(
+        StatusCodes.FORBIDDEN,
+        `The user with ID ${user.id} does not have rights to update a product`,
+        'GuitarController'
+      );
+    }
+
     const updatedGuitar = await this.guitarService.updateById(params.guitarId, body);
 
     if (!updatedGuitar) {

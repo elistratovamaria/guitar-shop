@@ -10,4 +10,6 @@ export default class CreateUserDto {
 
   @Length(passwordLength.MIN, passwordLength.MAX, { message: userValidationMessages.PASSWORD })
   public password!: string;
+
+  public isAdmin?: boolean;
 }

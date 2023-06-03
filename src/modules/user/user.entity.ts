@@ -17,6 +17,7 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
 
     this.userName = data.userName;
     this.email = data.email;
+    this.isAdmin = data.isAdmin;
   }
 
   @prop({
@@ -36,6 +37,9 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
     default: ''
   })
   private password!: string;
+
+  @prop()
+  public isAdmin?: boolean;
 
   public setPassword(password: string, salt: string) {
     this.password = createSHA256(password, salt);
