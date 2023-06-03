@@ -39,6 +39,7 @@ export abstract class Controller implements ControllerInterface {
     const fullServerPath = getFullServerPath(this.configService.get('HOST'), this.configService.get('PORT'));
     transformObject(
       STATIC_RESOURCE_FIELDS,
+      `${fullServerPath}/${this.configService.get('STATIC_DIRECTORY_PATH')}`,
       `${fullServerPath}/${this.configService.get('UPLOAD_DIRECTORY')}`,
       data
     );

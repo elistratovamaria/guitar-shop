@@ -5,6 +5,7 @@ import { ValidationError } from 'class-validator';
 import { ValidationErrorField } from '../types/validation-error-field.type.js';
 import { ServiceError } from '../types/service-error.enum.js';
 import { UnknownObject } from '../types/unknown-object.type.js';
+import { DEFAULT_STATIC_IMAGES } from '../app/application.constant.js';
 
 export const createSHA256 = (line: string, salt: string): string => {
   const shaHasher = crypto.createHmac('sha256', salt);
@@ -53,10 +54,11 @@ export const transformProperty = (
     });
 };
 
-export const transformObject = (properties: string[], uploadPath: string, data: UnknownObject) => {
+export const transformObject = (properties: string[], staticPath: string, uploadPath: string, data:UnknownObject) => {
   properties
     .forEach((property) => transformProperty(property, data, (target: UnknownObject) => {
-      target[property] = `${uploadPath}/${target[property]}`;
+      const rootPath = DEFAULT_STATIC_IMAGES.includes(target[property] as string) ? staticPath : uploadPath;
+      target[property] = `${rootPath}/${target[property]}`;
     }));
 };
 
