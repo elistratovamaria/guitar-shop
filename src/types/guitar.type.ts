@@ -4,7 +4,7 @@ import { StringAmount } from './string-amount.enum.js';
 export type Guitar = {
   name: string;
   description: string;
-  postDate: Date;
+  postDate?: Date;
   image: string;
   guitarType: GuitarType;
   articleNumber: string;

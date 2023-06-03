@@ -18,6 +18,9 @@ export default class GuitarService implements GuitarServiceInterface {
   ) { }
 
   public async create(dto: CreateGuitarDto): Promise<DocumentType<GuitarEntity>> {
+    if (!dto.postDate) {
+      dto.postDate = new Date();
+    }
     const result = await this.guitarModel.create(dto);
     this.logger.info(`New guitar created: ${dto.name}`);
 
