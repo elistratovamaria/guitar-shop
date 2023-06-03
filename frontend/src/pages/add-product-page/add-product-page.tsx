@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import Footer from '../../components/footer/footer';
+import Logo from '../../components/logo/logo';
 
 function AddProductPage(): JSX.Element {
   return (
@@ -10,9 +11,7 @@ function AddProductPage(): JSX.Element {
       <header className="header--admin header" id="header">
         <div className="container">
           <div className="header__wrapper">
-            <a className="header__logo logo" href="main.html">
-              <img className="logo__img" width="70" height="70" src="./img/svg/logo.svg" alt="Логотип" />
-            </a>
+            <Logo />
             <nav className="main-nav">
               <ul className="main-nav__list">
                 <li className="main-nav__item">
