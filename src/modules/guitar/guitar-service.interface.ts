@@ -10,10 +10,10 @@ import { StringAmount } from '../../types/string-amount.enum.js';
 export interface GuitarServiceInterface extends DocumentExistsInterface {
   create(dto: CreateGuitarDto): Promise<DocumentType<GuitarEntity>>;
   findById(guitarId: string): Promise<DocumentType<GuitarEntity> | null>;
-  find(sortType?: SortType): Promise<DocumentType<GuitarEntity>[]>;
-  findByGuitarType(sortType?: SortType, guitarType?: GuitarType): Promise<DocumentType<GuitarEntity>[]>;
-  findByStringAmount(sortType?: SortType, stringAmount?: StringAmount): Promise<DocumentType<GuitarEntity>[]>;
-  findByGuitarTypeAndStringAmount(sortType?: SortType, guitarType?: GuitarType, strings?: StringAmount): Promise<DocumentType<GuitarEntity>[]>;
+  find(sortType?: SortType, page?: string): Promise<DocumentType<GuitarEntity>[]>;
+  findByGuitarType(sortType?: SortType, guitarType?: GuitarType, page?: string): Promise<DocumentType<GuitarEntity>[]>;
+  findByStringAmount(sortType?: SortType, stringAmount?: StringAmount, page?: string): Promise<DocumentType<GuitarEntity>[]>;
+  findByGuitarTypeAndStringAmount(sortType?: SortType, guitarType?: GuitarType, stringAmount?: StringAmount, page?: string): Promise<DocumentType<GuitarEntity>[]>;
   deleteById(guitarId: string): Promise<DocumentType<GuitarEntity> | null>;
   updateById(guitarId: string, dto: UpdateGuitarDto): Promise<DocumentType<GuitarEntity> | null>;
 }

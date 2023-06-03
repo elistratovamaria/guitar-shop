@@ -33,23 +33,32 @@ export default class GuitarService implements GuitarServiceInterface {
     return this.guitarModel.findById(guitarId).exec();
   }
 
-  public async find(sortType?: SortType): Promise<DocumentType<GuitarEntity>[]> {
+  public async find(sortType?: SortType, page?: string): Promise<DocumentType<GuitarEntity>[]> {
+    let count: number;
+    if (page) {
+      count = +page > 0 ? DEFAULT_GUITAR_COUNT * (+page - 1) : 0;
+    } else {
+      count = 0;
+    }
     if (!sortType || sortType === SortType.Date) {
       return this.guitarModel
         .find()
         .sort({postDate: SortDirection.Down})
+        .skip(count)
         .limit(DEFAULT_GUITAR_COUNT)
         .exec();
     } else if (sortType === SortType.PriceDown) {
       return this.guitarModel
         .find()
         .sort({price: SortDirection.Down})
+        .skip(count)
         .limit(DEFAULT_GUITAR_COUNT)
         .exec();
     } else {
       return this.guitarModel
         .find()
         .sort({price: SortDirection.Up})
+        .skip(count)
         .limit(DEFAULT_GUITAR_COUNT)
         .exec();
     }

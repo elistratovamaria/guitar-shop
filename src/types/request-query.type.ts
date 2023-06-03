@@ -5,5 +5,6 @@ import { StringAmount } from './string-amount.enum.js';
 export type RequestQuery = {
   sortType?: SortType;
   guitarType?: GuitarType;
-  stringAmount?: StringAmount
+  stringAmount?: StringAmount;
+  page?: string;
 }

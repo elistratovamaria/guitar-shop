@@ -41,7 +41,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFkbWlubkBtYWlsLnJ1Iiwia
 
 ## Список товаров
 
-GET http://localhost:5000/guitars?sortType=price-down&&guitarType=укулеле HTTP/1.1
+GET http://localhost:5000/guitars?sortType=price-down&&page=2 HTTP/1.1
 
 ###
 
