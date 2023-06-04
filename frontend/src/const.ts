@@ -11,3 +11,23 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+export enum APIRoute {
+  Guitars = '/guitars',
+  User = '/users',
+  Login = '/login',
+  Register = '/register',
+  Logout = '/logout'
+}
+
+export enum NameSpace {
+  Guitars = 'GUITARS',
+  Guitar = 'GUITAR',
+  User = 'USER',
+}
+
+
+export enum HTTP_CODE {
+  OK = 200,
+  CREATED = 201
+}

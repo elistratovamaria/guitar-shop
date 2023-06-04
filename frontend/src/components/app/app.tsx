@@ -9,8 +9,13 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import LoginPage from '../../pages/login-page/login-page';
 import RegisterPage from '../../pages/register-page/register-page';
 import PrivateRoute from '../private-route/private-route';
+import { Guitar } from '../../types/guitar';
 
-function App(): JSX.Element {
+type AppProps = {
+  guitars: Guitar[];
+}
+
+function App({guitars}: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -25,7 +30,7 @@ function App(): JSX.Element {
           />
           <Route
             path={AppRoute.Guitars}
-            element={<ProductListPage />}
+            element={<ProductListPage guitars={guitars}/>}
           />
           <Route
             path={AppRoute.AddProduct}
