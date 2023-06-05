@@ -61,4 +61,3 @@ export const transformObject = (properties: string[], staticPath: string, upload
       target[property] = `${rootPath}/${target[property]}`;
     }));
 };
-
