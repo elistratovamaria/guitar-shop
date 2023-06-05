@@ -1,7 +1,7 @@
-import { AuthorizationStatus } from '../const.js';
-import { store } from '../store/index.js';
-import { Guitar } from './guitar.js';
-import { User } from './user.js';
+import { AuthorizationStatus } from '../const';
+import { store } from '../store/index';
+import { Guitar } from './guitar';
+import { User } from './user';
 
 export type State = ReturnType<typeof store.getState>;
 
