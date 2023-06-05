@@ -29,3 +29,8 @@ export enum HTTP_CODE {
   OK = 200,
   CREATED = 201
 }
+
+export enum Tab {
+  Characteristics = 'Characteristics',
+  Description = 'Description',
+}
