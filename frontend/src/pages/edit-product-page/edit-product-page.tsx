@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate, useParams } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
@@ -11,6 +11,8 @@ import Spinner from '../../components/spinner/spinner';
 import NotFoundPage from '../not-found-page/not-found-page';
 import { formatDate } from '../../utils/utils';
 import { AppRoute } from '../../const';
+import { GuitarType } from '../../types/guitar-type';
+import { StringAmount } from '../../types/string-amount';
 
 function EditProductPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -26,6 +28,9 @@ function EditProductPage(): JSX.Element {
 
     dispatch(fetchGuitar(id));
   }, [dispatch, id]);
+
+  const [, setGuitarType] = useState(guitar?.guitarType);
+  const [, setStringAmount] = useState(guitar?.stringAmount);
 
   if (isGuitarLoading) {
     return <Spinner />;
@@ -86,22 +91,22 @@ function EditProductPage(): JSX.Element {
                 </div>
                 <div className="input-radio edit-item__form-radio">
                   <span>Тип товара</span>
-                  <input type="radio" id="guitar" name="item-type" value="guitar" />
+                  <input type="radio" id="guitar" name="item-type" value="guitar" checked={guitar.guitarType === GuitarType.Acoustics} onChange={() => setGuitarType(GuitarType.Acoustics)}/>
                   <label htmlFor="guitar">Акустическая гитара</label>
-                  <input type="radio" id="el-guitar" name="item-type" value="el-guitar" />
+                  <input type="radio" id="el-guitar" name="item-type" value="el-guitar" checked={guitar.guitarType === GuitarType.Electro} onChange={() => setGuitarType(GuitarType.Electro)}/>
                   <label htmlFor="el-guitar">Электрогитара</label>
-                  <input type="radio" id="ukulele" name="item-type" value="ukulele" />
+                  <input type="radio" id="ukulele" name="item-type" value="ukulele" checked={guitar.guitarType === GuitarType.Ukulele} onChange={() => setGuitarType(GuitarType.Ukulele)}/>
                   <label htmlFor="ukulele">Укулеле</label>
                 </div>
                 <div className="input-radio edit-item__form-radio">
                   <span>Количество струн</span>
-                  <input type="radio" id="string-qty-4" name="string-qty" value="4" />
+                  <input type="radio" id="string-qty-4" name="string-qty" value="4" checked={guitar.stringAmount === StringAmount.Four} onChange={() => setStringAmount(StringAmount.Four)}/>
                   <label htmlFor="string-qty-4">4</label>
-                  <input type="radio" id="string-qty-6" name="string-qty" value="6" />
+                  <input type="radio" id="string-qty-6" name="string-qty" value="6" checked={guitar.stringAmount === StringAmount.Six} onChange={() => setStringAmount(StringAmount.Six)}/>
                   <label htmlFor="string-qty-6">6</label>
-                  <input type="radio" id="string-qty-7" name="string-qty" value="7" />
+                  <input type="radio" id="string-qty-7" name="string-qty" value="7" checked={guitar.stringAmount === StringAmount.Seven} onChange={() => setStringAmount(StringAmount.Seven)}/>
                   <label htmlFor="string-qty-7">7</label>
-                  <input type="radio" id="string-qty-12" name="string-qty" value="12" />
+                  <input type="radio" id="string-qty-12" name="string-qty" value="12" checked={guitar.stringAmount === StringAmount.Twelve} onChange={() => setStringAmount(StringAmount.Twelve)}/>
                   <label htmlFor="string-qty-12">12</label>
                 </div>
               </div>
