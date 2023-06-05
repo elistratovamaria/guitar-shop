@@ -8,9 +8,9 @@ export const mockData: MockData = {
     'Классическая для электрогитары форма корпуса, удобный гриф, оптимальная конфигурация звукоснимателей, позволяющая исполнять музыку в любом стиле, надежный тремоло бридж – это важные составляющие для правильного выбора первого инструмента.'
   ],
   images: [
-    'http://localhost:5000/static/catalog-product-1.png',
-    'http://localhost:5000/static/catalog-product-2.png',
-    'http://localhost:5000/static/catalog-product-3.png'
+    'catalog-product-1.png',
+    'catalog-product-2.png',
+    'catalog-product-3.png'
   ],
   articleNumbers: [
     'A121653',
