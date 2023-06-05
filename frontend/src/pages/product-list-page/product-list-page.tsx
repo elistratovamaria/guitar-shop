@@ -8,9 +8,12 @@ import { getGuitars, getIsLoading as getGuitarsIsLoading} from '../../store/guit
 import { fetchGuitars } from '../../store/api-actions';
 import Spinner from '../../components/spinner/spinner';
 import UserBlock from '../../components/user-block/user-block';
+import { useNavigate } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 function ProductListPage(): JSX.Element {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const isGuitarsLoading = useAppSelector(getGuitarsIsLoading);
   const guitars = useAppSelector(getGuitars);
 
@@ -65,22 +68,22 @@ function ProductListPage(): JSX.Element {
                     <label htmlFor="acoustic">Акустические гитары</label>
                   </div>
                   <div className="form-checkbox catalog-filter__block-item">
-                    <input className="visually-hidden" type="checkbox" id="electric" name="electric" checked />
+                    <input className="visually-hidden" type="checkbox" id="electric" name="electric" />
                     <label htmlFor="electric">Электрогитары</label>
                   </div>
                   <div className="form-checkbox catalog-filter__block-item">
-                    <input className="visually-hidden" type="checkbox" id="ukulele" name="ukulele" checked />
+                    <input className="visually-hidden" type="checkbox" id="ukulele" name="ukulele" />
                     <label htmlFor="ukulele">Укулеле</label>
                   </div>
                 </fieldset>
                 <fieldset className="catalog-filter__block">
                   <legend className="catalog-filter__block-title">Количество струн</legend>
                   <div className="form-checkbox catalog-filter__block-item">
-                    <input className="visually-hidden" type="checkbox" id="4-strings" name="4-strings" checked />
+                    <input className="visually-hidden" type="checkbox" id="4-strings" name="4-strings" />
                     <label htmlFor="4-strings">4</label>
                   </div>
                   <div className="form-checkbox catalog-filter__block-item">
-                    <input className="visually-hidden" type="checkbox" id="6-strings" name="6-strings" checked />
+                    <input className="visually-hidden" type="checkbox" id="6-strings" name="6-strings" />
                     <label htmlFor="6-strings">6</label>
                   </div>
                   <div className="form-checkbox catalog-filter__block-item">
@@ -88,7 +91,7 @@ function ProductListPage(): JSX.Element {
                     <label htmlFor="7-strings">7</label>
                   </div>
                   <div className="form-checkbox catalog-filter__block-item">
-                    <input className="visually-hidden" type="checkbox" id="12-strings" name="12-strings" disabled />
+                    <input className="visually-hidden" type="checkbox" id="12-strings" name="12-strings" />
                     <label htmlFor="12-strings">12</label>
                   </div>
                 </fieldset>
@@ -111,7 +114,7 @@ function ProductListPage(): JSX.Element {
                 </ul>
               </div>
             </div>
-            <button className="button product-list__button button--red button--big">Добавить новый товар</button>
+            <button className="button product-list__button button--red button--big" onClick={() => navigate(AppRoute.AddProduct)}>Добавить новый товар</button>
             <div className="pagination product-list__pagination">
               <ul className="pagination__list">
                 <li className="pagination__page pagination__page--active">

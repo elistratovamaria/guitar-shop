@@ -1,9 +1,13 @@
 import { Helmet } from 'react-helmet-async';
+import { useNavigate } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import UserBlock from '../../components/user-block/user-block';
+import { AppRoute } from '../../const';
 
 function AddProductPage(): JSX.Element {
+  const navigate = useNavigate();
+
   return (
     <div className="wrapper">
       <Helmet>
@@ -111,7 +115,7 @@ function AddProductPage(): JSX.Element {
               </div>
               <div className="add-item__form-buttons-wrap">
                 <button className="button button--small add-item__form-button" type="submit">Сохранить изменения</button>
-                <button className="button button--small add-item__form-button" type="button">Вернуться к списку товаров</button>
+                <button className="button button--small add-item__form-button" type="button" onClick={() => navigate(AppRoute.Guitars)}>Вернуться к списку товаров</button>
               </div>
             </form>
           </div>

@@ -19,8 +19,8 @@ POST http://localhost:5000/users/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "emily@overlook.net",
-  "password": "123456"
+  "email": "adminn@mail.ru",
+  "password": "adminn"
 }
 
 ###
@@ -49,7 +49,7 @@ GET http://localhost:5000/guitars?sortType=price-down&&page=2 HTTP/1.1
 
 POST http://localhost:5000/guitars HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFkbWlubkBtYWlsLnJ1IiwiaWQiOiI2NDdiNmZkNzIxZTg3ZDViYTE2ZGZhMmUiLCJpYXQiOjE2ODU4MTE4MTgsImV4cCI6MTY4NTk4NDYxOH0.WjiClZEO7FSUDkRRkLyy3dTW-BWiDiR73SlEbPT588E
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFkbWlubkBtYWlsLnJ1IiwiaWQiOiI2NDdiNmZkNzIxZTg3ZDViYTE2ZGZhMmUiLCJpYXQiOjE2ODU5ODcxNzMsImV4cCI6MTY4NjE1OTk3M30.fjv66pLvkiJ_N6vFNfDphzWDcaUk5OtracCGjJ6YRg4
 
 {
   "name": "VESTON F-38/BK",
@@ -72,9 +72,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFkbWlubkBtYWlsLnJ1Iiwia
 
 ## Обновление товара
 
-PATCH http://localhost:5000/guitars/647b7282c1b6280351cf07b5 HTTP/1.1
+PATCH http://localhost:5000/guitars/647e1f710cdc198623274142 HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFkbWlubkBtYWlsLnJ1IiwiaWQiOiI2NDdiNmZkNzIxZTg3ZDViYTE2ZGZhMmUiLCJpYXQiOjE2ODU4MTE4MTgsImV4cCI6MTY4NTk4NDYxOH0.WjiClZEO7FSUDkRRkLyy3dTW-BWiDiR73SlEbPT588E
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFkbWlubkBtYWlsLnJ1IiwiaWQiOiI2NDdiNmZkNzIxZTg3ZDViYTE2ZGZhMmUiLCJpYXQiOjE2ODU5ODcxNzMsImV4cCI6MTY4NjE1OTk3M30.fjv66pLvkiJ_N6vFNfDphzWDcaUk5OtracCGjJ6YRg4
 
 {
   "image": "catalog-product-1.png"
@@ -83,10 +83,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFkbWlubkBtYWlsLnJ1Iiwia
 ###
 
 ## Загрузка изображения для товара
-POST http://localhost:5000/guitars/647b504607ae29d3b6c34242/image HTTP/1.1
+POST http://localhost:5000/guitars/647e1f710cdc198623274142/image HTTP/1.1
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFkbWlubkBtYWlsLnJ1IiwiaWQiOiI2NDdiNmZkNzIxZTg3ZDViYTE2ZGZhMmUiLCJpYXQiOjE2ODU4MTE4MTgsImV4cCI6MTY4NTk4NDYxOH0.WjiClZEO7FSUDkRRkLyy3dTW-BWiDiR73SlEbPT588E
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFkbWlubkBtYWlsLnJ1IiwiaWQiOiI2NDdiNmZkNzIxZTg3ZDViYTE2ZGZhMmUiLCJpYXQiOjE2ODU5ODcxNzMsImV4cCI6MTY4NjE1OTk3M30.fjv66pLvkiJ_N6vFNfDphzWDcaUk5OtracCGjJ6YRg4
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="image"; filename="catalog-product-0.png"
 Content-Type: image/png

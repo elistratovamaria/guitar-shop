@@ -1,13 +1,22 @@
 import { Link } from 'react-router-dom';
 import { Guitar } from '../../types/guitar';
-import { APIRoute } from '../../const';
+import { APIRoute, AppRoute } from '../../const';
 import { formatDate } from '../../utils/utils';
+import { useAppDispatch } from '../../hooks/hooks';
+import { deleteGuitar, fetchGuitars } from '../../store/api-actions';
 
 type CatalogCardProps = {
   guitar: Guitar;
 }
 
 function CatalogCard({guitar}: CatalogCardProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  const handleDeleteClick = () => {
+    dispatch(deleteGuitar(guitar.id));
+    dispatch(fetchGuitars());
+  };
+
   return (
     <li className="catalog-item">
       <div className="catalog-item__data">
@@ -22,8 +31,8 @@ function CatalogCard({guitar}: CatalogCardProps): JSX.Element {
         </div>
       </div>
       <div className="catalog-item__buttons">
-        <a className="button button--small button--black-border" href="edit-item.html" aria-label="Редактировать товар">Редактировать</a>
-        <button className="button button--small button--black-border" type="submit" aria-label="Удалить товар">Удалить</button>
+        <Link className="button button--small button--black-border" to={`${AppRoute.Guitars}/${guitar.id}/${AppRoute.EditProduct}`} aria-label="Редактировать товар">Редактировать</Link>
+        <button className="button button--small button--black-border" type="submit" aria-label="Удалить товар" onClick={handleDeleteClick}>Удалить</button>
       </div>
     </li>
   );
