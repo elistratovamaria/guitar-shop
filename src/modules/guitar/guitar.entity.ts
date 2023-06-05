@@ -22,7 +22,7 @@ export class GuitarEntity extends defaultClasses.TimeStamps implements Guitar {
   @prop({required: true})
   public postDate!: Date;
 
-  @prop({required: true})
+  @prop({default: ''})
   public image!: string;
 
   @prop({

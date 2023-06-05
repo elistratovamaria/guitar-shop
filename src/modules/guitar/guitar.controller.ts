@@ -19,6 +19,8 @@ import { PrivateRouteMiddleware } from '../../common/middlewares/private-route.m
 import { ConfigInterface } from '../../common/config/config.interface.js';
 import { RequestQuery } from '../../types/request-query.type.js';
 import { UserServiceInterface } from '../user/user-service.interface.js';
+import { UploadFileMiddleware } from '../../common/middlewares/upload-file.middleware.js';
+import UploadImageRdo from './rdo/upload-image.rdo.js';
 
 type ParamsGetGuitar = {
   guitarId: string;
@@ -76,6 +78,16 @@ export default class GuitarController extends Controller {
         new DocumentExistsMiddleware(this.guitarService, 'Guitar', 'guitarId')
       ]
     });
+    this.addRoute({
+      path: '/:guitarId/image',
+      method: HttpMethod.Post,
+      handler: this.uploadImage,
+      middlewares: [
+        new PrivateRouteMiddleware(),
+        new ValidateObjectIdMiddleware('guitarId'),
+        new UploadFileMiddleware(this.configService.get('UPLOAD_DIRECTORY'), 'image'),
+      ]
+    });
   }
 
   public async show(
@@ -127,7 +139,7 @@ export default class GuitarController extends Controller {
     req: Request<Record<string, unknown>, Record<string, unknown>, CreateGuitarDto>,
     res: Response
   ): Promise<void> {
-    const { body, user} = req;
+    const { body, user } = req;
 
     const existedUser = await this.userService.findByEmail(user.email);
 
@@ -200,5 +212,12 @@ export default class GuitarController extends Controller {
     }
 
     this.ok(res, fillDTO(GuitarRdo, updatedGuitar));
+  }
+
+  public async uploadImage(req: Request<core.ParamsDictionary | ParamsGetGuitar>, res: Response) {
+    const { guitarId } = req.params;
+    const updateDto = { image: req.file?.filename };
+    await this.guitarService.updateById(guitarId, updateDto);
+    this.created(res, fillDTO(UploadImageRdo, { updateDto }));
   }
 }

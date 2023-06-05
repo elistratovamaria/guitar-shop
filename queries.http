@@ -81,3 +81,17 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFkbWlubkBtYWlsLnJ1Iiwia
 }
 
 ###
+
+## Загрузка изображения для товара
+POST http://localhost:5000/guitars/647b504607ae29d3b6c34242/image HTTP/1.1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFkbWlubkBtYWlsLnJ1IiwiaWQiOiI2NDdiNmZkNzIxZTg3ZDViYTE2ZGZhMmUiLCJpYXQiOjE2ODU4MTE4MTgsImV4cCI6MTY4NTk4NDYxOH0.WjiClZEO7FSUDkRRkLyy3dTW-BWiDiR73SlEbPT588E
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="image"; filename="catalog-product-0.png"
+Content-Type: image/png
+
+< ./frontend/public/img/content/catalog-product-0.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
