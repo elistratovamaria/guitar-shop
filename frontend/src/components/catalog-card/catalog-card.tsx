@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Guitar } from '../../types/guitar';
-import { AppRoute } from '../../const';
+import { APIRoute } from '../../const';
 import { formatDate } from '../../utils/utils';
 
 type CatalogCardProps = {
@@ -13,7 +13,7 @@ function CatalogCard({guitar}: CatalogCardProps): JSX.Element {
       <div className="catalog-item__data">
         <img src={guitar.image} width="36" height="93" alt="Картинка гитары" />
         <div className="catalog-item__data-wrapper">
-          <Link className="link" to={`${AppRoute.Guitars}/${guitar.id}`}>
+          <Link className="link" to={`${APIRoute.Guitars}/${guitar.id}`}>
             <p className="catalog-item__data-title">{guitar.name}</p>
           </Link>
           <br />

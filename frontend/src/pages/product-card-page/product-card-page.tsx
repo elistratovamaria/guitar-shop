@@ -1,8 +1,36 @@
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useParams } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { getActiveGuitar, getIsLoading as getGuitarIsLoading } from '../../store/guitar-data/selectors';
+import { fetchGuitar } from '../../store/api-actions';
+import Spinner from '../../components/spinner/spinner';
+import NotFoundPage from '../not-found-page/not-found-page';
 
 function ProductCardPage(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const { id } = useParams();
+  const guitar = useAppSelector(getActiveGuitar);
+  const isGuitarLoading = useAppSelector(getGuitarIsLoading);
+
+  useEffect(() => {
+    if (!id) {
+      return;
+    }
+
+    dispatch(fetchGuitar(id));
+  }, [dispatch, id]);
+
+  if (isGuitarLoading) {
+    return <Spinner />;
+  }
+
+  if (!guitar || !id) {
+    return <NotFoundPage />;
+  }
+
   return (
     <div className="wrapper">
       <Helmet>

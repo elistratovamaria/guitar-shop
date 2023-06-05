@@ -1,8 +1,8 @@
-import GuitarDto from '../../dto/guitar/guitar.dto.js';
-import UserWithTokenDto from '../../dto/user/user-with-token.dto.js';
-import UserDto from '../../dto/user/user.dto.js';
-import { Guitar } from '../../types/guitar.js';
-import { User } from '../../types/user.js';
+import GuitarDto from '../../dto/guitar/guitar.dto';
+import UserWithTokenDto from '../../dto/user/user-with-token.dto';
+import UserDto from '../../dto/user/user.dto';
+import { Guitar } from '../../types/guitar';
+import { User } from '../../types/user';
 
 export const adaptLoginToClient = (user: UserWithTokenDto): User => ({
   userName: user.userName,

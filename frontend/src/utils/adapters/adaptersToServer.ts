@@ -1,12 +1,12 @@
-import CreateGuitarDto from '../../dto/guitar/create-guitar.dto.js';
-import UpdateGuitarDto from '../../dto/guitar/update-guitar.dto.js';
-import CreateUserDto from '../../dto/user/create-user.dto.js';
-import UserDto from '../../dto/user/user.dto.js';
-import { Guitar } from '../../types/guitar.js';
-import { NewGuitar } from '../../types/new-guitar.js';
-import { NewUser } from '../../types/new-user.js';
-import { User } from '../../types/user.js';
-import { getTime } from '../utils.js';
+import CreateGuitarDto from '../../dto/guitar/create-guitar.dto';
+import UpdateGuitarDto from '../../dto/guitar/update-guitar.dto';
+import CreateUserDto from '../../dto/user/create-user.dto';
+import UserDto from '../../dto/user/user.dto';
+import { Guitar } from '../../types/guitar';
+import { NewGuitar } from '../../types/new-guitar';
+import { NewUser } from '../../types/new-user';
+import { User } from '../../types/user';
+import { getTime } from '../utils';
 
 export const adaptSignupToServer = (user: NewUser): CreateUserDto => ({
   userName: user.userName,

@@ -1,14 +1,26 @@
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import CatalogCard from '../../components/catalog-card/catalog-card';
-import { Guitar } from '../../types/guitar';
+import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
+import { getGuitars, getIsLoading as getGuitarsIsLoading} from '../../store/guitars-data/selectors';
+import { fetchGuitars } from '../../store/api-actions';
+import Spinner from '../../components/spinner/spinner';
 
-type ProductListProps = {
-  guitars: Guitar[];
-}
+function ProductListPage(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const isGuitarsLoading = useAppSelector(getGuitarsIsLoading);
+  const guitars = useAppSelector(getGuitars);
 
-function ProductListPage({guitars}: ProductListProps): JSX.Element {
+  useEffect(() => {
+    dispatch(fetchGuitars());
+  }, [dispatch]);
+
+  if (isGuitarsLoading) {
+    return <Spinner />;
+  }
+
   return (
     <div className="wrapper">
       <Helmet>

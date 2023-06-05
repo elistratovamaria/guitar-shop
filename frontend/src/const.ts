@@ -1,7 +1,7 @@
 export enum AppRoute {
   Login = '/',
   Guitars = '/guitars',
-  Register = '/register',
+  Register = '/users/register',
   EditProduct = 'edit',
   AddProduct = '/create'
 }
@@ -15,9 +15,8 @@ export enum AuthorizationStatus {
 export enum APIRoute {
   Guitars = '/guitars',
   User = '/users',
-  Login = '/login',
-  Register = '/register',
-  Logout = '/logout'
+  Login = 'login',
+  Register = 'register',
 }
 
 export enum NameSpace {
@@ -25,7 +24,6 @@ export enum NameSpace {
   Guitar = 'GUITAR',
   User = 'USER',
 }
-
 
 export enum HTTP_CODE {
   OK = 200,

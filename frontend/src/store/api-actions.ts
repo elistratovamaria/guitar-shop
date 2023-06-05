@@ -91,7 +91,7 @@ export const checkAuth = createAsyncThunk<User, undefined, { extra: Extra }>(
   async (_arg, { extra }) => {
     const { api } = extra;
     try {
-      const { data } = await api.get<UserDto>(APIRoute.Login);
+      const { data } = await api.get<UserDto>(`${APIRoute.User}/${APIRoute.Login}`);
       return adaptUserToClient(data);
     } catch (error) {
       dropToken();
@@ -106,7 +106,7 @@ export const login = createAsyncThunk<User, AuthData, { extra: Extra }>(
     const { api } = extra;
 
     const { data } = await api.post<UserDto & { token: Token }>(
-      APIRoute.Login,
+      `${APIRoute.User}/${APIRoute.Login}`,
       authData
     );
     const { token } = data;
@@ -116,19 +116,10 @@ export const login = createAsyncThunk<User, AuthData, { extra: Extra }>(
   }
 );
 
-export const logout = createAsyncThunk<void, undefined, { extra: Extra }>(
-  `${NameSpace.User}/logout`,
-  async (_arg, { extra }) => {
-    const { api } = extra;
-    await api.delete(APIRoute.Logout);
-    dropToken();
-  }
-);
-
 export const registerUser = createAsyncThunk<void, NewUser, { extra: Extra }>(
   `${NameSpace.User}/register`,
   async (userData, { extra }) => {
     const { api } = extra;
-    await api.post<CreateUserWithIdDto>(APIRoute.Register, adaptSignupToServer(userData));
+    await api.post<CreateUserWithIdDto>(`${APIRoute.User}/${APIRoute.Register}`, adaptSignupToServer(userData));
   }
 );

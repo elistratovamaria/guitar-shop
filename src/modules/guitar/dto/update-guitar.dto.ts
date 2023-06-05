@@ -1,4 +1,4 @@
-import { IsDateString, IsEnum, IsInt, Max, Length, Min, IsOptional } from 'class-validator';
+import { IsDateString, IsEnum, IsInt, Max, Length, Min, IsString, IsOptional } from 'class-validator';
 import { GuitarType } from '../../../types/guitar-type.enum.js';
 import { StringAmount } from '../../../types/string-amount.enum.js';
 import { guitarValidationMessages, nameLength, descriptionLength, priceValue, articleLength } from '../guitar.constant.js';
@@ -15,6 +15,10 @@ export default class UpdateGuitarDto {
   @IsOptional()
   @IsDateString({}, { message: guitarValidationMessages.POSTDATE })
   public postDate?: Date;
+
+  @IsOptional()
+  @IsString({ message: guitarValidationMessages.IMAGE })
+  public image?: string;
 
   @IsOptional()
   @IsEnum(GuitarType, { message: guitarValidationMessages.GUITAR_TYPE })
